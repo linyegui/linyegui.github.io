@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Golden leaf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="单元测试的意义软件系统是由许多个单元构成的，这些单元可能是对象、类、 函数，或者是一个更大的单元——组件或者模块。软件系统的整体质量就是由各个单元的质量保证，通过充分的单元测试，发现并修正单元中的问题，从而为系统的质量打下基础。 单元测试的工具单元测试一般针对程序代码进行测试，因此测试工具和特定的编程语言密切相关。典型的就是xxxUnit工具家族 例如：  Junit for JAVA CppUn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go的单元测试">
+<meta property="og:url" content="http://example.com/2022/10/20/%E5%85%B3%E4%BA%8EGO%E7%9A%84%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="Golden leaf">
+<meta property="og:description" content="单元测试的意义软件系统是由许多个单元构成的，这些单元可能是对象、类、 函数，或者是一个更大的单元——组件或者模块。软件系统的整体质量就是由各个单元的质量保证，通过充分的单元测试，发现并修正单元中的问题，从而为系统的质量打下基础。 单元测试的工具单元测试一般针对程序代码进行测试，因此测试工具和特定的编程语言密切相关。典型的就是xxxUnit工具家族 例如：  Junit for JAVA CppUn">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/image-20221018175049523.png">
+<meta property="article:published_time" content="2022-10-19T17:11:05.520Z">
+<meta property="article:modified_time" content="2023-05-10T16:23:11.561Z">
+<meta property="article:author" content="Golden leaf">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="测试">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/image/image-20221018175049523.png">
+  
+  
+  
+  <title>go的单元测试 - Golden leaf</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go的单元测试"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-20 01:11" pubdate>
+          2022年10月20日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">go的单元测试</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="单元测试的意义"><a href="#单元测试的意义" class="headerlink" title="单元测试的意义"></a>单元测试的意义</h3><p>软件系统是由许多个单元构成的，这些单元可能是对象、类、 函数，或者是一个更大的单元——组件或者模块。软件系统的整体质量就是由各个单元的质量保证，通过充分的单元测试，发现并修正单元中的问题，从而为系统的质量打下基础。</p>
+<h3 id="单元测试的工具"><a href="#单元测试的工具" class="headerlink" title="单元测试的工具"></a>单元测试的工具</h3><p>单元测试一般针对程序代码进行测试，因此测试工具和特定的编程语言密切相关。典型的就是<code>xxxUnit</code>工具家族</p>
+<p>例如：</p>
+<ul>
+<li><code>Junit</code> for JAVA</li>
+<li><code>CppUnit</code> for C++</li>
+<li><code>NUnit</code> for C#(.NET)</li>
+</ul>
+<h6 id="而GO语言则是通过标准库testing进行单元测试的"><a href="#而GO语言则是通过标准库testing进行单元测试的" class="headerlink" title="而GO语言则是通过标准库testing进行单元测试的"></a>而GO语言则是通过标准库<code>testing</code>进行单元测试的</h6><h3 id="GO的单元测试"><a href="#GO的单元测试" class="headerlink" title="GO的单元测试"></a>GO的单元测试</h3><p>Go 语言推荐测试文件和源代码文件放在一块，测试文件以 <code>_test.go</code> 结尾。比如，当前 package 有 <code>calc.go</code> 一个文件，我们想测试 该文件里的单元（通常是函数），那么应该新建 <code>calc_test.go</code> 作为测试文件（<code>GoLand</code>中右击需要测试的文件，选择<code>go to</code>下的<code>testing</code>即可生成）。</p>
+<p>在测试文件内有三种函数。</p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>格式</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>测试函数</td>
+<td>函数名前缀为Test</td>
+<td>测试程序的一些逻辑行为是否正确</td>
+</tr>
+<tr>
+<td>基准函数</td>
+<td>函数名前缀为Benchmark</td>
+<td>测试函数的性能</td>
+</tr>
+<tr>
+<td>示例函数</td>
+<td>函数名前缀为Example</td>
+<td>为文档提供示例文档</td>
+</tr>
+</tbody></table>
+<h6 id="测试函数"><a href="#测试函数" class="headerlink" title="测试函数"></a>测试函数</h6><p>在<code>GoLand</code>中右击需要测试的函数，选择<code>go to</code>下的<code>testing</code>即可生成对应的测试函数（不同控制状态下的函数生成对应的测试函数名不同，<code>Add</code>会生成<code>TestAdd</code>而<code>add</code>则生成<code>Test_add</code>，不过均以Test作为前缀）</p>
+<p>Add函数如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> ex<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Add</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>生成的对应的测试函数如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> ex<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    <span class="hljs-comment">//参数结构体</span><br>	<span class="hljs-keyword">type</span> args <span class="hljs-keyword">struct</span> &#123;<br>		a <span class="hljs-type">int</span><br>		b <span class="hljs-type">int</span><br>	&#125;<br>    <span class="hljs-comment">//测试结构体，每一例测试包含了名字和参数和期望输出</span><br>	tests := []<span class="hljs-keyword">struct</span> &#123;<br>		name <span class="hljs-type">string</span>  <br>		want <span class="hljs-type">int</span>		<br>        args args<br>	&#125;&#123;<br>        <span class="hljs-comment">// (在此处添加测试样例)<span class="hljs-doctag">TODO:</span> Add test cases.</span><br>	&#125;<br>    <span class="hljs-comment">//遍历测试样例，分别执行</span><br>	<span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests &#123;<br>		t.Run(tt.name, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>            <span class="hljs-comment">//在测试样例的参数传进去，返回的结果与期望比较，不同的话调用Errorf输出</span><br>			<span class="hljs-keyword">if</span> got := Add(tt.args.a, tt.args.b); got != tt.want &#123;<br>				t.Errorf(<span class="hljs-string">&quot;Add() = %v, want %v&quot;</span>, got, tt.want)<br>			&#125;<br>		&#125;)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，测试函数的参数只有一个 <code>t testing.t</code>,他用于报告测试失败和附加的日志信息。 <code>testing.T</code>的拥有的方法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Error(args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Errorf(format <span class="hljs-type">string</span>, args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Fail()<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> FailNow()<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Failed() <span class="hljs-type">bool</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Fatal(args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Fatalf(format <span class="hljs-type">string</span>, args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Log(args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Logf(format <span class="hljs-type">string</span>, args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Name() <span class="hljs-type">string</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *T)</span></span> Parallel()<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(t *T)</span></span> Run(name <span class="hljs-type">string</span>, f <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *T)</span></span>) <span class="hljs-type">bool</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Skip(args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> SkipNow()<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Skipf(format <span class="hljs-type">string</span>, args ...<span class="hljs-keyword">interface</span>&#123;&#125;)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *T)</span></span> Skipped() <span class="hljs-type">bool</span><br></code></pre></td></tr></table></figure>
+
+<p>查看测试覆盖率：在命令行终端执行<code>go test -cover -coverprofile=d</code>后，会在当前目录下生成一个文件d</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ go <span class="hljs-built_in">test</span> -cover -coverprofile=d<br>--- FAIL: TestAdd (0.00s)                <br>    --- FAIL: TestAdd/1+2 (0.00s)        <br>        add_test.go:20: Add() = 3, want 4<br>--- FAIL: TestSolution (0.00s)                  <br>    非空子序列_test.go:31: expected:&#123;3&#125;, got:&#123;4&#125;<br>FAIL                                            <br>coverage: 100.0% of statements                  <br><span class="hljs-built_in">exit</span> status 1                         <br>FAIL    awesomeProject/ex       0.209s<br><br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>go tool cover -html=d </code>，即可在浏览器中打开查看详细情况。</p>
+<p><img src="/../image/image-20221018175049523.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>本文只是简单的讲了如何在Go中进行单元测，同步学校的软件测试课程（课上讲的是JUnit，自己跟倾向go方向），后面会随着课程的推进不断完善，例子和操作的是一些最基础的，想要写出高质量的代码，就不得不编写更多刁钻的测试用例和测试代码，来不断测试并完善自己的代码。</p>
+<h3 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h3><p><a target="_blank" rel="noopener" href="https://www.liwenzhou.com/posts/Go/unit-test/#autoid-2-4-0">李文周的博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://geektutu.com/post/quick-go-test.html">极客兔兔</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/go/">#go</a>
+      
+        <a href="/tags/%E6%B5%8B%E8%AF%95/">#测试</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go的单元测试</div>
+      <div>http://example.com/2022/10/20/关于GO的测试/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Golden leaf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/20/hello-world/" title="Hello World">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/30/%E4%BD%BF%E7%94%A8git%E5%88%A0%E9%99%A4%E9%A1%B9%E7%9B%AE%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6/" title="使用git删除GitHub上的项目内的文件">
+                        <span class="hidden-mobile">使用git删除GitHub上的项目内的文件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
