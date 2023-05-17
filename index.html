@@ -224,6 +224,232 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/05/18/MySQL%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF%EF%BC%9AError%201045%20Access%20denied%20for%20user%20&#39;username&#39;@&#39;host&#39;%20(using%20password%20YES)/" target="_self">
+          MySQL连接错误：Error 1045
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/18/MySQL%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF%EF%BC%9AError%201045%20Access%20denied%20for%20user%20&#39;username&#39;@&#39;host&#39;%20(using%20password%20YES)/" target="_self">
+        <div>
+          MySQL连接错误：Error 1045: Access denied for user ‘username‘@’host’ (using password: YES)最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括： 用户名或密码输入错误  用户名或密码被限制访问  数据库服务未启动 在自己电脑上使用Navicat,通过相同的账号密码连接
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-18 01:19" pubdate>
+              2023-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Go/" class="category-chain-item">Go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">#MySQL</a>
+            
+              <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">#配置文件</a>
+            
+              <a href="/tags/Go/">#Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/16/gin%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" target="_self">
+          gin跨域问题
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/16/gin%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" target="_self">
+        <div>
+          gin跨域问题作为中间件使用 12345678910111213141516171819202122package middlewareimport (	&quot;github.com/gin-gonic/gin&quot;	&quot;net/http&quot;)func Cors() gin.HandlerFunc &#123;	return func(context *gin.Conte
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-16 13:53" pubdate>
+              2023-05-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/gin/">#gin</a>
+            
+              <a href="/tags/%E8%B7%A8%E5%9F%9F/">#跨域</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/16/Go%E4%B8%AD%E7%9A%84Slice%E7%9A%84%E7%BB%86%E8%8A%82/" target="_self">
+          Go中的Slice的细节
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/16/Go%E4%B8%AD%E7%9A%84Slice%E7%9A%84%E7%BB%86%E8%8A%82/" target="_self">
+        <div>
+          Go中的Slice的细节源码如下12345type slice struct &#123;	array unsafe.Pointer  //一个指向数组的指针	len   int			  //切片内元素的数量	cap   int			  //切片的容量&#125;   Go语言是值传递，但一个切片作为参数传递时，会把slice的值复制到另一个slice  通过以下代码可以看出s1作为参数传递给te
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-16 13:29" pubdate>
+              2023-05-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/slice/">#slice</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%A7%AF%E7%B4%AF/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%A7%AF%E7%B4%AF/" target="_self">
+        <div>
+          数据结构积累链表篇链表的遍历：1.层序遍历依靠队列轻松实现  代码示例： 1234567891011121314151617181920212223242526272829func levelOrder(root *TreeNode) []int &#123;    //存放结果的数组    ans:=make([]int,0)    //判断是否为空的二叉树    if root == nil&
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-15 15:02" pubdate>
+              2023-05-15
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/05/11/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" target="_self">
           分享实用的小工具
         </a>
@@ -551,200 +777,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2023-03-08 14:17" pubdate>
               2023-03-08
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/10/%E7%94%A8pandas%E5%A4%84%E7%90%86%E8%A1%A8%E6%A0%BC/" target="_self">
-          如何优雅的做一个班长
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/10/%E7%94%A8pandas%E5%A4%84%E7%90%86%E8%A1%A8%E6%A0%BC/" target="_self">
-        <div>
-          用pandas处理表格作为一名班干，经常要帮助辅导员从同学们手上收集各种表格，还有从全学院或者全校的学生信息出挑出本班同学的信息让同学们核对，故经常出现一下情况：  收集了大部分同学时，有小部分同学没有收集，筛查比较麻烦 在从上万条信息中筛选出本班同学信息，在同学们的信息填写完整时，还是比较容易用Excel筛选出来，但总有小部分同学信息不完善，又会漏掉。 需要抽少部分同学去完成某项任务  pyth
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-10 19:40" pubdate>
-              2022-12-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">#python</a>
-            
-              <a href="/tags/pandas/">#pandas</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/05/%E5%9C%A8%E4%BD%BF%E7%94%A8gorm%E6%9F%A5%E8%AF%A2%E6%97%B6%EF%BC%8C%E8%83%BD%E5%A4%9F%E6%9F%A5%E5%88%B0%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%8C%E4%BD%86%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%8D%B4%E6%98%AF%E7%A9%BA%E7%9A%84%EF%BC%9F/" target="_self">
-          gorm查询异常，无法返回查询到的结果
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/05/%E5%9C%A8%E4%BD%BF%E7%94%A8gorm%E6%9F%A5%E8%AF%A2%E6%97%B6%EF%BC%8C%E8%83%BD%E5%A4%9F%E6%9F%A5%E5%88%B0%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%8C%E4%BD%86%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%8D%B4%E6%98%AF%E7%A9%BA%E7%9A%84%EF%BC%9F/" target="_self">
-        <div>
-          在使用gorm查询时，能够查到数据量，但返回的值却是空的？可能的原因有：  模型里的字段首字母未为设置成大写 数据表的列名未与字段名字对应  模型里的字段首字母为设置成大写Go语言通过首字母的大小写来控制访问权限。无论是方法，变量，常量或是自定义的变量类型，如果首字母大写，则可以被外部包访问，反之则不可以。 12345type Student struct &#123;   Sno      st
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-05 14:03" pubdate>
-              2022-11-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/go/">#go</a>
-            
-              <a href="/tags/gorm/">#gorm</a>
-            
-              <a href="/tags/mysql/">#mysql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3/" target="_self">
-          GO的面向接口
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3/" target="_self">
-        <div>
-          
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-31 13:14" pubdate>
-              2022-10-31
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" target="_self">
-          GO的面向对象
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" target="_self">
-        <div>
-          
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-31 13:13" pubdate>
-              2022-10-31
             </time>
           </div>
         

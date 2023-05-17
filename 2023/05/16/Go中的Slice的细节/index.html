@@ -16,19 +16,27 @@
   <meta name="author" content="Golden leaf">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="GO的面向接口">
-<meta property="og:url" content="http://example.com/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3/index.html">
+    <meta name="description" content="Go中的Slice的细节源码如下12345type slice struct &amp;#123;	array unsafe.Pointer  &#x2F;&#x2F;一个指向数组的指针	len   int			  &#x2F;&#x2F;切片内元素的数量	cap   int			  &#x2F;&#x2F;切片的容量&amp;#125;   Go语言是值传递，但一个切片作为参数传递时，会把slice的值复制到另一个slice  通过以下代码可以看出s1作为参数传递给te">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go中的Slice的细节">
+<meta property="og:url" content="http://example.com/2023/05/16/Go%E4%B8%AD%E7%9A%84Slice%E7%9A%84%E7%BB%86%E8%8A%82/index.html">
 <meta property="og:site_name" content="Golden leaf">
+<meta property="og:description" content="Go中的Slice的细节源码如下12345type slice struct &amp;#123;	array unsafe.Pointer  &#x2F;&#x2F;一个指向数组的指针	len   int			  &#x2F;&#x2F;切片内元素的数量	cap   int			  &#x2F;&#x2F;切片的容量&amp;#125;   Go语言是值传递，但一个切片作为参数传递时，会把slice的值复制到另一个slice  通过以下代码可以看出s1作为参数传递给te">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-31T05:14:42.000Z">
-<meta property="article:modified_time" content="2022-10-31T05:14:42.968Z">
+<meta property="og:image" content="http://example.com/img/image-20230516013739364.png">
+<meta property="og:image" content="http://example.com/img/image-20230516122844623.png">
+<meta property="og:image" content="http://example.com/img/image-20230516130425709.png">
+<meta property="article:published_time" content="2023-05-16T05:29:45.551Z">
+<meta property="article:modified_time" content="2023-05-17T17:26:25.661Z">
 <meta property="article:author" content="Golden leaf">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="slice">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/image-20230516013739364.png">
   
   
   
-  <title>GO的面向接口 - Golden leaf</title>
+  <title>Go中的Slice的细节 - Golden leaf</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="GO的面向接口"></span>
+            <span id="subtitle" data-typed-text="Go中的Slice的细节"></span>
           
         </div>
 
@@ -205,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-31 13:14" pubdate>
-          2022年10月31日 下午
+        <time datetime="2023-05-16 13:29" pubdate>
+          2023年5月16日 下午
         </time>
       </span>
     
@@ -217,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.9k 字
         
       </span>
     
@@ -228,7 +236,7 @@
         
         
         
-          1 分钟
+          16 分钟
         
       </span>
     
@@ -266,12 +274,34 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">GO的面向接口</h1>
+            <h1 style="display: none">Go中的Slice的细节</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <h2 id="Go中的Slice的细节"><a href="#Go中的Slice的细节" class="headerlink" title="Go中的Slice的细节"></a>Go中的Slice的细节</h2><h5 id="源码如下"><a href="#源码如下" class="headerlink" title="源码如下"></a>源码如下</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> slice <span class="hljs-keyword">struct</span> &#123;<br>	array unsafe.Pointer  <span class="hljs-comment">//一个指向数组的指针</span><br>	<span class="hljs-built_in">len</span>   <span class="hljs-type">int</span>			  <span class="hljs-comment">//切片内元素的数量</span><br>	<span class="hljs-built_in">cap</span>   <span class="hljs-type">int</span>			  <span class="hljs-comment">//切片的容量</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/image-20230516013739364.png" srcset="/img/loading.gif" lazyload alt="image-20230516013739364"></p>
+<p>Go语言是值传递，但一个切片作为参数传递时，会把slice的值复制到另一个slice</p>
+<p><img src="/../img/image-20230516122844623.png" srcset="/img/loading.gif" lazyload alt="image-20230516122844623"></p>
+<p>通过以下代码可以看出s1作为参数传递给test1后，test1创建了新的副本来承接s1的值，s1和形参slice拥有不同的地址空间，但却拥有相同的值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>)<br>	fmt.Println(<span class="hljs-string">&quot;s1的地址:&quot;</span>, unsafe.Pointer(&amp;s1)) 			 <span class="hljs-comment">//0xc000096060</span><br>	fmt.Println(<span class="hljs-string">&quot;s1指向的数组:&quot;</span>, unsafe.Pointer(&amp;s1[<span class="hljs-number">0</span>]))	    <span class="hljs-comment">//0xc0000b00f0 </span><br>    <span class="hljs-comment">//s1 cap: 10 s1 len: 1 </span><br>    fmt.Println(<span class="hljs-string">&quot;s1 cap:&quot;</span>, <span class="hljs-built_in">cap</span>(s1), <span class="hljs-string">&quot;s1 len:&quot;</span>, <span class="hljs-built_in">len</span>(s1))	   <br>	test1(s1)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test1</span><span class="hljs-params">(s2 []<span class="hljs-type">int</span>)</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;形参地址:&quot;</span>, unsafe.Pointer(&amp;s2))	    <span class="hljs-comment">//0xc000096078</span><br>	fmt.Println(<span class="hljs-string">&quot;形参指向的数组:&quot;</span>, unsafe.Pointer(&amp;s2[<span class="hljs-number">0</span>]))<span class="hljs-comment">//0xc0000b00f0</span><br>    <span class="hljs-comment">//s2 cap: 10 s1 len: 1 </span><br>    fmt.Println(<span class="hljs-string">&quot;s2 cap:&quot;</span>, <span class="hljs-built_in">cap</span>(s2), <span class="hljs-string">&quot;s1 len:&quot;</span>, <span class="hljs-built_in">len</span>(s2))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当在函数内对s2指向的数组进行修改时，也会引起s1的改变</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>)<br>	fmt.Println(<span class="hljs-string">&quot;s1修改前:&quot;</span>, s1)<span class="hljs-comment">//[0],int的初始值是0</span><br>	test2(s1)<br>	fmt.Println(<span class="hljs-string">&quot;s1修改后:&quot;</span>, s1)<span class="hljs-comment">//[1]</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test2</span><span class="hljs-params">(s2 []<span class="hljs-type">int</span>)</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;s2修改前:&quot;</span>, s2)<span class="hljs-comment">//[0]</span><br>	s2[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>	s2 = <span class="hljs-built_in">append</span>(s2, <span class="hljs-number">2</span>)<br>	fmt.Println(<span class="hljs-string">&quot;s2修改后:&quot;</span>, s2)<span class="hljs-comment">//[1,2]</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>过程大致如下：</p>
+<p><img src="/../img/image-20230516130425709.png" srcset="/img/loading.gif" lazyload alt="image-20230516130425709"></p>
+<h4 id="slice扩容机制"><a href="#slice扩容机制" class="headerlink" title="slice扩容机制"></a>slice扩容机制</h4><p>但slice的len等于cap时，使用append往slice追加元素会引发扩容。扩容会开辟一个新的空间，并把原来的数组的值拷贝到新空间。</p>
+<ul>
+<li>cap&lt;1024:新的空间大小是原来的两倍</li>
+<li>cap&gt;1024:为避免浪费内存，新的空间比原来的大1&#x2F;4</li>
+</ul>
+<p>由于扩容后的slice指向的是新的数组，再修改数组上的值，不会引起原数组的改变了。</p>
+<p>值得注意的是，slice的初始值cap过小的话，会频繁的引起扩容，这会带来一定的损耗，过大会引起空间浪费，因此需要合理的初始化slice。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>	fmt.Println(<span class="hljs-string">&quot;s1修改前:&quot;</span>, s1)<span class="hljs-comment">//[0]</span><br>	test3(s1)<br>	fmt.Println(<span class="hljs-string">&quot;s1修改后:&quot;</span>, s1)<span class="hljs-comment">//[0]</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test3</span><span class="hljs-params">(s2 []<span class="hljs-type">int</span>)</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;扩容前底层数组的地址：&quot;</span>, unsafe.Pointer(&amp;s2[<span class="hljs-number">0</span>])) <span class="hljs-comment">// 0xc0000160c0</span><br>	fmt.Println(<span class="hljs-string">&quot;扩容前s2的地址：&quot;</span>, unsafe.Pointer(&amp;s2))		  <span class="hljs-comment">// 0xc000004090</span><br>	fmt.Println(s2)<span class="hljs-comment">//[0]</span><br>	s2 = <span class="hljs-built_in">append</span>(s2, <span class="hljs-number">2</span>)<br>	s2 = <span class="hljs-built_in">append</span>(s2, <span class="hljs-number">3</span>)<br>	fmt.Println(<span class="hljs-string">&quot;扩容后底层数组的地址：&quot;</span>, unsafe.Pointer(&amp;s2[<span class="hljs-number">0</span>])) <span class="hljs-comment">//0xc00000e200</span><br>	fmt.Println(<span class="hljs-string">&quot;扩容前s2的地址：&quot;</span>, unsafe.Pointer(&amp;s2))		  <span class="hljs-comment">//0xc000004090</span><br>	s2[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>	fmt.Println(s2)<span class="hljs-comment">//[1,2,3]</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
@@ -279,6 +309,36 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/go/">#go</a>
+      
+        <a href="/tags/slice/">#slice</a>
+      
+    </div>
   
 </div>
 
@@ -288,8 +348,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>GO的面向接口</div>
-      <div>http://example.com/2022/10/31/GO的面向接口/</div>
+      <div>Go中的Slice的细节</div>
+      <div>http://example.com/2023/05/16/Go中的Slice的细节/</div>
     </div>
     <div class="license-meta">
       
@@ -301,7 +361,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月31日</div>
+          <div>2023年5月16日</div>
         </div>
       
       
@@ -333,9 +393,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/10/%E7%94%A8pandas%E5%A4%84%E7%90%86%E8%A1%A8%E6%A0%BC/" title="如何优雅的做一个班长">
+                      <a href="/2023/05/16/gin%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="gin跨域问题">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何优雅的做一个班长</span>
+                        <span class="hidden-mobile">gin跨域问题</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -343,8 +403,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="GO的面向对象">
-                        <span class="hidden-mobile">GO的面向对象</span>
+                      <a href="/2023/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%A7%AF%E7%B4%AF/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

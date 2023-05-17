@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/image-20230311164022116.png">
 <meta property="article:published_time" content="2023-03-11T14:02:31.818Z">
-<meta property="article:modified_time" content="2023-03-11T16:17:13.652Z">
+<meta property="article:modified_time" content="2023-05-16T05:41:34.345Z">
 <meta property="article:author" content="Golden leaf">
 <meta property="article:tag" content="MapReduce">
 <meta property="article:tag" content="执行过程">
@@ -277,7 +277,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="MapReduce是如何工作的？"><a href="#MapReduce是如何工作的？" class="headerlink" title="MapReduce是如何工作的？"></a>MapReduce是如何工作的？</h2><h4 id="这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。"><a href="#这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。" class="headerlink" title="这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。"></a>这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。</h4><p><img src="/img/image-20230311164022116.png" srcset="/img/loading.gif" lazyload></p>
+                <h2 id="MapReduce是如何工作的？"><a href="#MapReduce是如何工作的？" class="headerlink" title="MapReduce是如何工作的？"></a>MapReduce是如何工作的？</h2><h4 id="这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。"><a href="#这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。" class="headerlink" title="这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。"></a>这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。</h4><p><img src="/../img/image-20230311164022116.png" srcset="/img/loading.gif" lazyload></p>
 <ol>
 <li><h5 id="创建程序副本"><a href="#创建程序副本" class="headerlink" title="创建程序副本"></a>创建程序副本</h5><p>用户程序首先调用的MapReduce库将输入文件分成M个数据片度，每个数据片段的大小一般从 16MB到64MB(可以通过可选的参数来控制每个数据片段的大小)。然后用户程序在机群中创建大量的程序副本。 </p>
 </li>

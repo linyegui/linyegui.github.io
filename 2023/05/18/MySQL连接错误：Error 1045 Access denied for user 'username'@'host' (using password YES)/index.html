@@ -16,19 +16,24 @@
   <meta name="author" content="Golden leaf">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="GO的面向接口">
-<meta property="og:url" content="http://example.com/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3/index.html">
+    <meta name="description" content="MySQL连接错误：Error 1045: Access denied for user ‘username‘@’host’ (using password: YES)最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括： 用户名或密码输入错误  用户名或密码被限制访问  数据库服务未启动 在自己电脑上使用Navicat,通过相同的账号密码连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL连接错误：Error 1045">
+<meta property="og:url" content="http://example.com/2023/05/18/MySQL%E8%BF%9E%E6%8E%A5%E9%94%99%E8%AF%AF%EF%BC%9AError%201045%20Access%20denied%20for%20user%20'username'@'host'%20(using%20password%20YES)/index.html">
 <meta property="og:site_name" content="Golden leaf">
+<meta property="og:description" content="MySQL连接错误：Error 1045: Access denied for user ‘username‘@’host’ (using password: YES)最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括： 用户名或密码输入错误  用户名或密码被限制访问  数据库服务未启动 在自己电脑上使用Navicat,通过相同的账号密码连接">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-31T05:14:42.000Z">
-<meta property="article:modified_time" content="2022-10-31T05:14:42.968Z">
+<meta property="article:published_time" content="2023-05-17T17:19:45.611Z">
+<meta property="article:modified_time" content="2023-05-17T17:21:22.898Z">
 <meta property="article:author" content="Golden leaf">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="配置文件">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>GO的面向接口 - Golden leaf</title>
+  <title>MySQL连接错误：Error 1045 - Golden leaf</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="GO的面向接口"></span>
+            <span id="subtitle" data-typed-text="MySQL连接错误：Error 1045"></span>
           
         </div>
 
@@ -205,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-31 13:14" pubdate>
-          2022年10月31日 下午
+        <time datetime="2023-05-18 01:19" pubdate>
+          2023年5月18日 凌晨
         </time>
       </span>
     
@@ -217,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.2k 字
         
       </span>
     
@@ -228,7 +233,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -266,12 +271,44 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">GO的面向接口</h1>
+            <h1 style="display: none">MySQL连接错误：Error 1045</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <h2 id="MySQL连接错误：Error-1045-Access-denied-for-user-‘username‘-’host’-using-password-YES"><a href="#MySQL连接错误：Error-1045-Access-denied-for-user-‘username‘-’host’-using-password-YES" class="headerlink" title="MySQL连接错误：Error 1045: Access denied for user ‘username‘@’host’ (using password: YES)"></a>MySQL连接错误：Error 1045: Access denied for user ‘username‘@’host’ (using password: YES)</h2><h5 id="最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括："><a href="#最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括：" class="headerlink" title="最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括："></a>最近在配置云数据库时，总是报这个错误。网上给出的答案是连接数据库时用户名或密码不正确导致的。可能的原因包括：</h5><ol>
+<li><p>用户名或密码输入错误</p>
+</li>
+<li><p>用户名或密码被限制访问</p>
+</li>
+<li><p>数据库服务未启动</p>
+<p>在自己电脑上使用Navicat,通过相同的账号密码连接成功了，以上问题一下就排查掉了</p>
+</li>
+<li><p>MySQL驱动程序未导入或版本不匹配</p>
+<p>使用以下代码更新后依然报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get github.com/go-sql-driver/mysql<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>OK，虽然我没有通过以上办法解决问题，但通过上面的步骤应该能帮助你解决这个问题。</p>
+<h5 id="梦回大一"><a href="#梦回大一" class="headerlink" title="梦回大一"></a>梦回大一</h5><p>我是怎么解决的呢？一开始是通过配置文件<code>.ini</code>来配置数据库的，使用的是<code>ini.MapTo()</code>来映射配置。后来直接在代码中写进配置，发现连通了。这说明配置文件中的密码没问题，会不会是加载配置文件除了问题呢？于是乎把加载到的配置参数打印出来，果不其然，密码错了（密码以<code>#</code>结尾，而打印出来的密码不带有<code>#</code>）。原因是：</p>
+<blockquote>
+<p>在使用ini.MapTo()函数将配置文件中的内容映射到结构体时，如果配置文件中的某些键名或键值以“#”开头，可能会导致MapTo()函数无法正确读取这些键名或键值。这是因为“#”在INI文件中被用作注释符号，表示后面的内容都是注释，不应该被解析。</p>
+</blockquote>
+<p>配置文件在Goland打开的检查的，没高亮提醒（期间提示我安装插件，我忽略了，QAQ），真倒霉。这不禁让我想起当年刚学C语言时，因为main函数敲成mian导致找bug找了一整天，也是因为粗心。不过不得不说，编辑器确实也是给代码质量提供了不少保障。</p>
+<p>在使用ini.MapTo()函数将配置文件中的内容映射到结构体时，如果配置文件中的某些键名或键值以“#”开头，可能会导致MapTo()函数无法正确读取这些键名或键值。这是因为“#”在INI文件中被用作注释符号，表示后面的内容都是注释，不应该被解析。</p>
+<p>要解决这个问题，可以尝试以下方法：</p>
+<ol>
+<li>修改配置文件</li>
+</ol>
+<p>可以将配置文件中以“#”开头的键名或键值改为其他字符。例如，将“#key &#x3D; value”改为“_key &#x3D; value”。</p>
+<ol>
+<li>使用其他INI解析库</li>
+</ol>
+<p>如果配置文件中的键名或键值不能修改，可以尝试使用其他INI解析库，例如go-ini或ini.v1。这些库可能支持更多的配置文件格式和特性，可以更好地解析包含“#”字符的键名或键值。</p>
+<ol>
+<li>手动解析配置文件</li>
+</ol>
+<p>如果以上方法都无法解决问题，可以尝试手动解析配置文件。可以使用bufio.Scanner读取文件内容，然后使用strings.Split()函数将每一行分割为键名和键值，再将它们映射到结构体中。手动解析虽然比较麻烦，但可以更精确地控制解析过程，并且可以处理更复杂的配置文件格式和特性。</p>
+
                 
               </div>
             
@@ -279,6 +316,38 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Go/" class="category-chain-item">Go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+        <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">#配置文件</a>
+      
+        <a href="/tags/Go/">#Go</a>
+      
+    </div>
   
 </div>
 
@@ -288,8 +357,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>GO的面向接口</div>
-      <div>http://example.com/2022/10/31/GO的面向接口/</div>
+      <div>MySQL连接错误：Error 1045</div>
+      <div>http://example.com/2023/05/18/MySQL连接错误：Error 1045 Access denied for user &#39;username&#39;@&#39;host&#39; (using password YES)/</div>
     </div>
     <div class="license-meta">
       
@@ -301,7 +370,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月31日</div>
+          <div>2023年5月18日</div>
         </div>
       
       
@@ -333,18 +402,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/10/%E7%94%A8pandas%E5%A4%84%E7%90%86%E8%A1%A8%E6%A0%BC/" title="如何优雅的做一个班长">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何优雅的做一个班长</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/31/GO%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="GO的面向对象">
-                        <span class="hidden-mobile">GO的面向对象</span>
+                      <a href="/2023/05/16/gin%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="gin跨域问题">
+                        <span class="hidden-mobile">gin跨域问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
