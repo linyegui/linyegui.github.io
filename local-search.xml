@@ -44,24 +44,11 @@
   
   
   <entry>
-    <title></title>
+    <title>一个基于TCP的RPC工作流程</title>
     <link href="/2023/05/29/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8ETCP%E7%9A%84RPC%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/"/>
     <url>/2023/05/29/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8ETCP%E7%9A%84RPC%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</url>
     
     <content type="html"><![CDATA[<h2 id="一个基于TCP的RPC工作流程"><a href="#一个基于TCP的RPC工作流程" class="headerlink" title="一个基于TCP的RPC工作流程"></a>一个基于TCP的RPC工作流程</h2><h3 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h3><p>客户端要想调用服务端的一个函数，需要把自己调用的函数名参数告诉服务端，服务端拿到函数名和参数后，就可以执行对应的函数并将结果返回。通常客户端和服务端之间通过建立一个TCP连接来传递调用信息和应答。</p><h4 id="1-监听指定端口来接收客户端发起的连接"><a href="#1-监听指定端口来接收客户端发起的连接" class="headerlink" title="1.监听指定端口来接收客户端发起的连接"></a>1.监听指定端口来接收客户端发起的连接</h4><p><img src="D:\Blog\source\img\image-20230527000045492.png" alt="image-20230527000045492"></p><h4 id="2-客户端发起连接"><a href="#2-客户端发起连接" class="headerlink" title="2.客户端发起连接"></a>2.客户端发起连接</h4><p><img src="D:\Blog\source\img\image-20230527145034427.png" alt="image-20230527145034427"></p><h3 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h3><h5 id="客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？"><a href="#客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？" class="headerlink" title="客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？"></a>客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？</h5><p>这就需要到消息的序列化和反序列化了，序列化和反序列化是将数据结构转换为字节流或将字节流转换为数据结构的过程。常见的序列化和反序列化工具有以下几种：</p><ol><li>JSON：一种轻量级的数据交换格式，易于人阅读和编写，支持多种编程语言，如 Java、Python、JavaScript </li><li>XML：一种标记语言，可用于表示各种数据结构，如文本、数字、日期、布尔值、数组、对象等。</li><li>Protobuf：Google 开发的一种高效的序列化和反序列化工具，支持多种编程语言，如 Java、C++、Python </li><li>Thrift：Facebook 开发的一种高效的跨语言序列化和反序列化工具，支持多种编程语言，</li></ol><p><img src="D:\Blog\source\img\image-20230527152236837.png" alt="image-20230527152236837">如果客户端和服务端使用的不是同一种序列化和反序列化工具，通常会导致解析错误，所以支持协商好消息的编解码方式的RPC框架中，需要事先协商好消息的编解码方式，可以是双发约以定固定字段为序列化方式，也可以在建立连接后，双发通过一个默认的编解码方式协商好序列化方式如：</p><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coq">|<span class="hljs-type">Option</span>&#123;MagicNumber: xxx, CodecType: xxx&#125; | <span class="hljs-type">Header</span>&#123;ServiceMethod ...&#125; | <span class="hljs-type">Body</span> interface&#123;&#125;|<br><span class="hljs-type">|&lt;------      固定 JSON</span> 编码      ------&gt;   | <span class="hljs-type">&lt;-------   编码方式由 CodeType</span> 决定   -------&gt;|<span class="hljs-type"></span><br></code></pre></td></tr></table></figure><h3 id="客户端的工作"><a href="#客户端的工作" class="headerlink" title="客户端的工作"></a>客户端的工作</h3>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/2023/05/27/%E6%B5%85%E6%B5%85%E7%9A%84%E5%88%86%E4%BA%AB%E4%B8%80%E4%BA%9B%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
-    <url>/2023/05/27/%E6%B5%85%E6%B5%85%E7%9A%84%E5%88%86%E4%BA%AB%E4%B8%80%E4%BA%9B%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%A4%E8%AF%86/</url>
-    
-    <content type="html"><![CDATA[<h2 id="浅浅的分享一些计算机网络的认识"><a href="#浅浅的分享一些计算机网络的认识" class="headerlink" title="浅浅的分享一些计算机网络的认识"></a>浅浅的分享一些计算机网络的认识</h2>]]></content>
     
     
     
@@ -168,7 +155,7 @@
   
   
   <entry>
-    <title></title>
+    <title>数据结构积累</title>
     <link href="/2023/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%A7%AF%E7%B4%AF/"/>
     <url>/2023/05/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%A7%AF%E7%B4%AF/</url>
     
