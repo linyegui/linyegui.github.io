@@ -224,6 +224,254 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/03/30/Gitee%E4%BD%BF%E7%94%A8%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/" target="_self">
+          Gitee使用简易教程
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/30/Gitee%E4%BD%BF%E7%94%A8%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/" target="_self">
+        <div>
+          Gitee使用简易教程老师要求在gitee上提交作业的，对于没使用过Gitee的同学来说，可能一开始会有点复杂。可以按照以下方式进行。 1.在Gitee上新建仓库：1.登录后在屏幕的右上角有个加号，鼠标悬停出现“新建仓库”  2.点击新建仓库，进入如下界面，编辑仓库的名称和路径即可，至于初始化，先都不选择，点击创建。  创建成功后进入到如下界面：  这是官方的入门教程，里面的代码可以直接使用。但事
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-30 14:36" pubdate>
+              2023-03-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/git/" class="category-chain-item">git</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/git/">#git</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/13/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3/" target="_self">
+          线程与进程的区别
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/13/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3/" target="_self">
+        <div>
+          线程与进程理解线程与进程的区别进程：是操作系统进行资源分配和保护的单位。 线程：是处理器调度和分配的基本单位。 下图是一个进程的组成，一个进程通常包含一个或多个线程。  可以直观的看出，线程的存在使得处理器调度时，同一进程内的线程调度只需要完成用户栈和核心栈等少部分资源的切换。与进程切换相比节省了很多开销。 多线程的实现用户级线程用户级线程是指线程的管理工作有应用程序来做，在用户空间内实现，因此内
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-13 00:05" pubdate>
+              2023-03-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="category-chain-item">操作系统</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">#多线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/11/MapReduce%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F/" target="_self">
+          MapReduce是如何工作的？
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/11/MapReduce%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F/" target="_self">
+        <div>
+          MapReduce是如何工作的？这篇主要是根据个人理解，就着原文的例子，对MapReduce的执行过程有个更加直观的感受。  创建程序副本用户程序首先调用的MapReduce库将输入文件分成M个数据片度，每个数据片段的大小一般从 16MB到64MB(可以通过可选的参数来控制每个数据片段的大小)。然后用户程序在机群中创建大量的程序副本。   为程序副本分配任务这些程序副本中的有一个特殊的程序–mas
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-11 22:02" pubdate>
+              2023-03-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/" class="category-chain-item">分布式系统</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MapReduce/">#MapReduce</a>
+            
+              <a href="/tags/%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B/">#执行过程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/10/6.824%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/" target="_self">
+          分布式系统简介
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/10/6.824%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B/" target="_self">
+        <div>
+          这是个人在学习 MIT6.824 分布式系统时的个人总结。 6.824 分布式系统分布式系统的核心：是一系列计算集群通过网络共同完成某一串连贯的任务分布式计算为什么那么重要曾经，Google 构造过一个系统，这个系统要在TB级的数据上进行大量计算，比如创建所有网页内容的索引或分析整个网络的链接结构以便识别出最重要的页面或最权威的页面，正如大家知道的那样。 那时，整个网络甚至有，数十TB的数据，构建
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-10 19:08" pubdate>
+              2023-03-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/" class="category-chain-item">分布式系统</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/">#分布式系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/12/10/%E7%94%A8pandas%E5%A4%84%E7%90%86%E8%A1%A8%E6%A0%BC/" target="_self">
           如何优雅的做一个班长
         </a>
