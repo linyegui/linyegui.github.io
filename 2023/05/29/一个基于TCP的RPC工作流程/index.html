@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="Golden leaf">
 <meta property="og:description" content="一个基于TCP的RPC工作流程建立连接客户端要想调用服务端的一个函数，需要把自己调用的函数名参数告诉服务端，服务端拿到函数名和参数后，就可以执行对应的函数并将结果返回。通常客户端和服务端之间通过建立一个TCP连接来传递调用信息和应答。 1.监听指定端口来接收客户端发起的连接 2.客户端发起连接 序列化和反序列化客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？这就需要到消息的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:\Blog\source\img\image-20230527000045492.png">
-<meta property="og:image" content="d:\Blog\source\img\image-20230527145034427.png">
-<meta property="og:image" content="d:\Blog\source\img\image-20230527152236837.png">
+<meta property="og:image" content="http://example.com/img/image-20230527000045492.png">
+<meta property="og:image" content="http://example.com/img/image-20230527145034427.png">
+<meta property="og:image" content="http://example.com/img/image-20230527152236837.png">
 <meta property="article:published_time" content="2023-05-29T03:36:01.697Z">
-<meta property="article:modified_time" content="2023-05-29T06:02:34.535Z">
+<meta property="article:modified_time" content="2023-06-03T15:31:50.259Z">
 <meta property="article:author" content="Golden leaf">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="d:\Blog\source\img\image-20230527000045492.png">
+<meta name="twitter:image" content="http://example.com/img/image-20230527000045492.png">
   
   
   
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          786 字
+          1.5k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          7 分钟
+          13 分钟
         
       </span>
     
@@ -278,8 +278,8 @@
               <div class="markdown-body">
                 
                 <h2 id="一个基于TCP的RPC工作流程"><a href="#一个基于TCP的RPC工作流程" class="headerlink" title="一个基于TCP的RPC工作流程"></a>一个基于TCP的RPC工作流程</h2><h3 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h3><p>客户端要想调用服务端的一个函数，需要把自己调用的函数名参数告诉服务端，服务端拿到函数名和参数后，就可以执行对应的函数并将结果返回。通常客户端和服务端之间通过建立一个TCP连接来传递调用信息和应答。</p>
-<h4 id="1-监听指定端口来接收客户端发起的连接"><a href="#1-监听指定端口来接收客户端发起的连接" class="headerlink" title="1.监听指定端口来接收客户端发起的连接"></a>1.监听指定端口来接收客户端发起的连接</h4><p><img src="D:\Blog\source\img\image-20230527000045492.png" srcset="/img/loading.gif" lazyload alt="image-20230527000045492"></p>
-<h4 id="2-客户端发起连接"><a href="#2-客户端发起连接" class="headerlink" title="2.客户端发起连接"></a>2.客户端发起连接</h4><p><img src="D:\Blog\source\img\image-20230527145034427.png" srcset="/img/loading.gif" lazyload alt="image-20230527145034427"></p>
+<h4 id="1-监听指定端口来接收客户端发起的连接"><a href="#1-监听指定端口来接收客户端发起的连接" class="headerlink" title="1.监听指定端口来接收客户端发起的连接"></a>1.监听指定端口来接收客户端发起的连接</h4><p><img src="/../img/image-20230527000045492.png" srcset="/img/loading.gif" lazyload alt="image-20230527000045492"></p>
+<h4 id="2-客户端发起连接"><a href="#2-客户端发起连接" class="headerlink" title="2.客户端发起连接"></a>2.客户端发起连接</h4><p><img src="/../img/image-20230527145034427.png" srcset="/img/loading.gif" lazyload alt="image-20230527145034427"></p>
 <h3 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h3><h5 id="客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？"><a href="#客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？" class="headerlink" title="客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？"></a>客户端和服务端如何正确的从基于字节流的TCP连接上解析出对方发来的信息？</h5><p>这就需要到消息的序列化和反序列化了，序列化和反序列化是将数据结构转换为字节流或将字节流转换为数据结构的过程。常见的序列化和反序列化工具有以下几种：</p>
 <ol>
 <li>JSON：一种轻量级的数据交换格式，易于人阅读和编写，支持多种编程语言，如 Java、Python、JavaScript </li>
@@ -287,12 +287,22 @@
 <li>Protobuf：Google 开发的一种高效的序列化和反序列化工具，支持多种编程语言，如 Java、C++、Python </li>
 <li>Thrift：Facebook 开发的一种高效的跨语言序列化和反序列化工具，支持多种编程语言，</li>
 </ol>
-<p><img src="D:\Blog\source\img\image-20230527152236837.png" srcset="/img/loading.gif" lazyload alt="image-20230527152236837">如果客户端和服务端使用的不是同一种序列化和反序列化工具，通常会导致解析错误，所以支持协商好消息的编解码方式的RPC框架中，需要事先协商好消息的编解码方式，可以是双发约以定固定字段为序列化方式，也可以在建立连接后，双发通过一个默认的编解码方式协商好序列化方式如：</p>
+<p><img src="/../img/image-20230527152236837.png" srcset="/img/loading.gif" lazyload alt="image-20230527152236837">如果客户端和服务端使用的不是同一种序列化和反序列化工具，通常会导致解析错误，所以支持协商好消息的编解码方式的RPC框架中，需要事先协商好消息的编解码方式，可以是双发约以定固定字段为序列化方式，也可以在建立连接后，双发通过一个默认的编解码方式协商好序列化方式如：</p>
 <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coq">|<span class="hljs-type">Option</span>&#123;MagicNumber: xxx, CodecType: xxx&#125; | <span class="hljs-type">Header</span>&#123;ServiceMethod ...&#125; | <span class="hljs-type">Body</span> interface&#123;&#125;|<br><span class="hljs-type">|&lt;------      固定 JSON</span> 编码      ------&gt;   | <span class="hljs-type">&lt;-------   编码方式由 CodeType</span> 决定   -------&gt;|<span class="hljs-type"></span><br></code></pre></td></tr></table></figure>
 
+<p>在连接建立后，客户端会发送率先发送一个Option,这一段数据的序列化方式是早就协商好了的，所以服务端以最先协商序列化方式读取就好了。</p>
+<h3 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h3><p>想要从字节流中解析出我们想要的数据，除了需要双方的序列化和反序列化方式一样之外，还需要有一个能够接收数据的结构体。服务端是如何选择一个结构体去接收数据呢？</p>
+<p>Header的内容是确定的，服务端每次都先用一个Header实例去接收客户端发来的一个请求头信息，而服务端便是凭借请求头里的ServiceMethod，确定用什么去接收数据的。具体的做法是：</p>
+<p>1.服务端维护着一个serviceMap sync.Map，其中以服务名为键，以服务实例为值。</p>
+<p>2.每个服务实例里维护着一个map,该map存储着这个服务下的所有方法Methdo的信息。</p>
+<p>3.每个Method记录着以下信息</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> methodType <span class="hljs-keyword">struct</span> &#123;<br>	<span class="hljs-comment">//方法本身</span><br>	method reflect.Method<br>	<span class="hljs-comment">//方法的第一个参数的类型</span><br>	ArgType reflect.Type<br>	<span class="hljs-comment">//方法的第二个参数的的类型</span><br>	ReplyType reflect.Type<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p>所以通过ServiceMethod我们可以找到一个服务下的一个Methdo的信息的信息methodType，再根据methodType中的ArgType动态创建实例，有了实例，便可以接收到客户端的数据啦！</p>
+<p>接收数据后就可以交给method reflect.Method处理啦，具体通过method.Func.call()调用了，返回值也是根据ReplyType动态创建实例接收。在进行序列化返回给客户端。</p>
+<p>服务注册，就是创建和维护这连个map的过程。</p>
+<p>以上便是一次最简单的远程调用过程。但一个RPC框架所提供的远不止这些。</p>
 
-<h3 id="客户端的工作"><a href="#客户端的工作" class="headerlink" title="客户端的工作"></a>客户端的工作</h3>
                 
               </div>
             
@@ -354,9 +364,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%97%AE%E7%AD%94/" title="">
+                      <a href="/2023/05/29/Reflect%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E7%BB%86%E8%8A%82/" title="Reflect中的一个小细节">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">Reflect中的一个小细节</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
